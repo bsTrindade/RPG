@@ -1,4 +1,5 @@
 from time import sleep
+from typetext import narrarTexto as narrar
 
 #Definir stats
 class player:
@@ -13,7 +14,7 @@ class player:
         #self.intelligence = intelligence
 
     def expLevelUp(self):
-        return 100 + (self.level - 1) * ((1/100 * 15))
+        return 100 * (1 + ((self.level - 1) * ((1/100 * 15))))
 
     def ganhoXP(self, exp):
         self.exp += exp
@@ -27,7 +28,7 @@ class player:
         self.exp = extra_exp
         self.statsUp(self.name)
 
-        print(f'You character Leveled UP!\nYour HP is now fully recovered!\nAttack is now {self.attack}\nDefense is now {self.defense}.\nHP is now {self.hp}.')
+        narrar(f'You character Leveled UP!\nYour HP is now fully recovered!\nAttack is now {self.attack}\nDefense is now {self.defense}.\nHP is now {self.hp}.')
         sleep(3)
 
     def statsUp(self, name):

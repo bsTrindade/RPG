@@ -1,43 +1,8 @@
 import random, os, character, enemys
 from time import sleep
-
+from typetext import narrarTexto as narrar
 
 #from character import player, list_classes
-
-#FUNÇÃO PARA MOSTRAR TEXTO DE FORMA NARRATIVA
-def narrarTexto (texto):
-    texto_1 = ''
-    n = 0
-    while n <= 2:
-        print('\033[7m \033[m')
-        sleep(.3)
-        os.system("cls")
-        print(' \033[m')
-        sleep(.3)
-        os.system("cls")
-        n = n + 1
-    n = 0
-    while n < len(texto):
-        texto_1 = texto_1 + texto[n]
-        os.system("cls")
-        
-        print('{}\033[7m \033[m'.format(texto_1))
-
-        n = n + 1
-    
-        sleep(.005)
-    n = 0
-    os.system("cls")
-    while n <= 2:
-        print(texto_1, end='')
-        print('\033[7m \033[m')
-        sleep(.3)
-        os.system("cls")
-        print(texto_1, end='')
-        print(' \033[m')
-        sleep(.3)
-        os.system("cls")
-        n = n + 1
 
 #FUNÇÃO PARA CALCULAR O DANO DOS ATAQUES
 def calculateDamage(atkValue, defValue):
@@ -49,12 +14,11 @@ def enemyEncounter():
 
 def luta(pc, enem):
 
-    print('\nThe battle begins!')
+    narrar('\nThe battle begins!')
     print('\n\033[1mBATTLE LOG\033[m')
 
     player_baseAtk = pc.attack
     player_baseDef = pc.defense
-    #player_baseHP = pc.hp
 
     enemy_name = enem.name
     enemy_baseAtk = enem.attack
@@ -74,12 +38,15 @@ def luta(pc, enem):
             print('{} attacked {} and inflicted {} damage. {} HP is now {}.'.format(player_name, (enemy_name.title().split())[1], damage, enemy_name, enemy_baseHP))
         if enemy_baseHP <= 0:
             enemy_baseHP = 0
-            print('\033[1mBattle over!\033[m The enemy has fallen and {} won the battle.'.format(player_name))
-            pc.ganhoXP(enem.expMonstro())
-            
+            pc.ganhoXP(enem.expMonstro(pc.level))
+            narrar('\033[1mBattle over!\033[m\nThe enemy has fallen and {} won the battle.'.format(player_name))
+            narrar(f'{player_name} won {enem.exp:.0f} experience points.')
+
+            sleep(3)
+
             break
 
-        sleep(1.5)
+        sleep(2)
 
         enemy_baseAtk = enemy_baseAtk + random.randint(0, 6)
         player_baseDef = player_baseDef + random.randint(0, 4)
@@ -93,9 +60,12 @@ def luta(pc, enem):
             print('{} attacked {} and inflicted {} damage. {} HP is now {}.'.format((enemy_name.title().split())[1], player_name, damage, player_name, pc.hp))
         if pc.hp <= 0:
 
-            print('\033[1mBattle over!\033[m {} has fallen and {} won the battle.'.format(player_name, enemy_name.title().split()[1]))
+            narrar('\033[1mBattle over!\033[m\n{} has fallen and {} won the battle.'.format(player_name, enemy_name.title().split()[1]))
+
+            sleep(3)
+
             break
-        sleep(1.5)
+        sleep(2)
     
 
 #ESCOLHA DO PERSONAGEM / CLASSE
@@ -108,16 +78,16 @@ player_character = character.list_classes[player_character_input - 1]
 
 os.system("cls")
 
-# narrarTexto('\033[1m{}\033[m is an {}, in search for a great treasure, hidden ages ago.
+# narrar('\033[1m{}\033[m is an {}, in search for a great treasure, hidden ages ago.
             
 while player_character.hp > 0:
     enemy = enemyEncounter()
     
-    narrarTexto('\033[1m{}\033[m is an {}, in search for a great treasure, hidden ages ago. Passing through a cave, he was attacked by {}.'.format(player_name, player_character.name, enemy.name))
+    narrar('\033[1m{}\033[m is an {}, in search for a great treasure, hidden ages ago. Passing through a cave, he was attacked by {}.'.format(player_name, player_character.name, enemy.name))
     luta(player_character, enemy)
     
-    print(f'{player_name} is level {player_character.level}.\nHe has {player_character.hp} HP left and has {player_character.exp:.0f} exp points')
+    narrar(f'{player_name} is level {player_character.level}.\nHe has {player_character.hp} HP left and has {player_character.exp:.0f} exp points')
 
-    sleep(2)
+    sleep(3)
 
-print('YOU DIED')
+narrar('YOU DIED')

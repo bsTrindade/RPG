@@ -1,3 +1,5 @@
+from character import player
+
 class enemy:
     def __init__(self, name, attack, defense, hp):
         self.name = str(name)
@@ -8,8 +10,9 @@ class enemy:
         self.exp = 0
         #self.intelligence = intelligence
 
-    def expMonstro(self):
-        return 50 + (self.level - 1) * ((1/100 * 10))
+    def expMonstro(self, level):
+        self.exp = 50 * (1 + ((level - 1) * ((1/100 * 10))))
+        return self.exp
     
     pass
 

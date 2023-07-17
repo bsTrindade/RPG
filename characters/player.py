@@ -1,7 +1,6 @@
 from time import sleep
-from typetext import narrarTexto as narrar
+from narrator import narrate
 
-#Definir stats
 class player:
     def __init__(self, name, attack, defense, hp):
         self.name = str(name)
@@ -28,7 +27,7 @@ class player:
         self.exp = extra_exp
         self.statsUp(self.name)
 
-        narrar(f'You character Leveled UP!\nYour HP is now fully recovered!\nAttack is now {self.attack}\nDefense is now {self.defense}.\nHP is now {self.hp}.')
+        narrate(f'You character Leveled UP!\nYour HP is now fully recovered!\nAttack is now {self.attack}\nDefense is now {self.defense}.\nHP is now {self.hp}.')
         sleep(3)
 
     def statsUp(self, name):

@@ -1,3 +1,5 @@
+from items import Inventory
+
 class Character:
     base_attack = 0
     base_defense = 0
@@ -5,8 +7,8 @@ class Character:
     level = 1
     xp = 0
     char_name = "Character Class"
-    name = "Player Name"
-
+    name = "Player Name"  
+    inventory = Inventory(name, capacity=20)
     ATTACK_MULTIPLIER_CONST = 0.5
     DEFENSE_MULTIPLIER_CONST = 0.4
     HP_MULTIPLIER_CONST = 4
@@ -16,11 +18,13 @@ class Character:
         self.name = name
         self.char_name = self.__class__.__name__
         self.set_status_based_on_level()
+        
 
     def set_status_based_on_level(self):
-        self.attack = self.base_attack * self.level * round(self.base_attack*self.ATTACK_MULTIPLIER_CONST)
-        self.defense = self.base_defense * self.level * round(self.base_defense*self.DEFENSE_MULTIPLIER_CONST)
-        self.hp = self.base_hp + self.HP_MULTIPLIER_CONST * (self.level - 1)
+        self.attack = self.base_attack + self.level * round(self.base_attack*self.ATTACK_MULTIPLIER_CONST)
+        self.defense = self.base_defense + self.level * round(self.base_defense*self.DEFENSE_MULTIPLIER_CONST)
+        self.max_hp = self.base_hp + self.HP_MULTIPLIER_CONST * (self.level - 1)
+        self.hp = self.max_hp
 
     def calculate_fight_xp(self):
         return 50 * (1 + ((self.level - 1) * ((1/100 * 10))))

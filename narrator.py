@@ -1,8 +1,12 @@
 import os, sys
 from time import sleep
 
+def __init__():
+    pass
+
 #LIMPA O CONSOLE
 ##SE WINDOWS CLS, SENÃO CLEAR
+
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
@@ -10,23 +14,24 @@ def cls():
 def print_message_and_sleep(message):
     print(message, end='')
     sys.stdout.flush()
-    sleep(.015)
+    sleep(.012)
 
 #QUADRADO QUE PISCA IMITANDO CONSOLE
-def blink_square():
+def blink_square(times):
     n = 0
-    while n < 4:
+    while n < times:
         print('\033[7m \b', end='')
         sys.stdout.flush()
-        sleep(.48)
+        sleep(.4)
         print('\033[m \b', end='')
         sys.stdout.flush()
-        sleep(.48)
+        sleep(.4)
         n += 1
 
 
 #CHAMA A NARRAÇÃO
-def narrate(message, _should_clear=True, speaker=False, *args, **kwargs):
+def narrate(message, _should_clear=True, speaker=False, blink=False, *args, **kwargs):
+    
     if _should_clear:
         cls()
 
@@ -38,13 +43,18 @@ def narrate(message, _should_clear=True, speaker=False, *args, **kwargs):
     for letter in composed_message:
         print_message_and_sleep(letter)
 
-    sleep(.15)
-
-def narrate_combat_message(message, hero, enemy):
-    pass
+    if blink:
+        blink_square(blink)
 
 #ESPAÇO PARA TESTES
 if __name__ == '__main__':
 
-    narrate('teste teste teste', speaker="Lola")
-    blink_square()
+    # narrate('teste teste teste', speaker="Lola", blink=2)
+
+    text = 'TESTANDO A PARADA AQUI'
+    text_to_draw = str()
+    for l in range(len(text)):
+        cls()
+        text_to_draw = text_to_draw + text[l]
+
+        print(text_to_draw)

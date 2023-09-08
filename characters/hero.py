@@ -19,6 +19,6 @@ class Knight(Hero):
     base_hp = 20
 
 class Assassin(Hero):
-    base_attack = 6
+    base_attack = 12
     base_defense = 1
     base_hp = 15
